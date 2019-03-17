@@ -10,7 +10,7 @@ def faceDetection(img):
     return faces, gray_img
 
 
-
+#给训练的图片添加标签
 def label_of_train(trainset):
     faces = []
     faceID = []
@@ -38,16 +38,18 @@ def label_of_train(trainset):
             faceID.append(int(id))
     return faces, faceID
 
-
+#训练分类器
 def train_classifier(faces,faceID):
     face_recognizer=cv2.face.LBPHFaceRecognizer_create()
     face_recognizer.train(faces,np.array(faceID))
     return face_recognizer
 
+#在指定区域画矩形框
 def draw_rect(test_img,face):
     (x,y,w,h)=face
     cv2.rectangle(test_img,(x,y),(x+w,y+h),(255,0,0),thickness=5)
-    
+
+#在指定区域添加文档
 def put_text(test_img,text,x,y):
     cv2.putText(test_img,text,(x,y),cv2.FONT_HERSHEY_DUPLEX,5,(255,0,0),6)
 
